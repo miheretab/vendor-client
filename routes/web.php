@@ -18,6 +18,10 @@ Route::get('/', function () {
 });
 
 //Auth::routes();
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => ['auth', 'client']], function() {
     Route::post('/clients/request', 'ClientsController@store');
+});
+
+Route::group(['middleware' => ['auth', 'vendor']], function() {
+    Route::post('/vendors/execute/{id}', 'VendorsController@execute');
 });

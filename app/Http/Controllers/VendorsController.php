@@ -7,21 +7,19 @@ use App\Jobs\ProcessRequest;
 use App\Models\ClientRequest;
 use Illuminate\Http\Request;
 
-class ClientsController extends Controller
+class VendorsController extends Controller
 {
     /**
-     * Store a new client request.
+     * Execute a request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function execute(Request $request, $id)
     {
-        $clientRequest = ClientRequest::create([
-            'user_id' => \Auth::user()->id,
-            'description' => $request->input('description'),
-            'vendor_id' => $request->input('vendor_id'),
-            'status' => ClientRequest::STATUS_QUEUE
+        $clientRequest = ClientRequest::findOrFail($id);
+        $clientRequest->update([
+            'status' => ClientRequest::STATUS_EXECUTED
         ]);
 
         // payment update here
