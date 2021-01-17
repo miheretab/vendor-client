@@ -22,9 +22,5 @@ class VendorsController extends Controller
             'status' => ClientRequest::STATUS_EXECUTED
         ]);
 
-        // payment update here
-
-        ProcessRequest::dispatch($clientRequest)
-            ->delay(now()->addSeconds(5));
     }
 }
